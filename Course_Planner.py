@@ -13,13 +13,14 @@ class User:
 
     def add_course(self, course):
         self.course = course
-        user_courses[self.course]=""
+        user_courses[self.course] = ""
 
     def remove_course(self, course):
         self.course = course
         del user_courses[self.course]
 
 
+# class 'courses' to operate with each course enrolled
 class Courses:
 
     def __init__(self, notes):
@@ -45,6 +46,7 @@ class Courses:
 
 
 
+#function to verify the course asked to operate on exists or not
 def allow_edit():
     print("\n")
     for i in user_courses:
@@ -64,92 +66,92 @@ def allow_edit():
 
 
 
+#Function to access and start the course planner
+def courseplanner():            
+    while(True):
+        student = User()
+        response = int(input("\n\n\n1.Add Course    \n2.Remove Course    \n3.Create notes    \n4.Read notes \n5.Update notes    \n6.Delete notes \n7.Your enrolled courses \n8.Your total Units \n9.Exit \nYour response : "))
+        if(response==1):
+            while(True):
+                print(("\nList of Courses and respective units\n"))
+                for key in dict_of_courses:
+                    print("{}  ---->  {}".format(key, dict_of_courses[key]))
+                ans = input("Enter code of the course to be added:")
+                for key in dict_of_courses:
+                    fl = True
+                    name_code = key.split(" ")
+                    if(ans==name_code[1]):
+                        fl = False                      # to deal with cases when unvalid code entered
+                        if(name_code[0] not in user_courses):       #to check course already enrolled or not
+                            student.add_course(name_code[0])
+                            print("\n{} has been added to your courses\n\n".format(name_code[0]))
+                        else:
+                            print("\nCourse Already enrolled\n")
+                        break
+                if(fl):
+                    print("\nEnter valid course code!!\n") 
 
-
-
-while(True):
-    student = User()
-    response = int(input("\n\n\n1.Add Course    \n2.Remove Course    \n3.Create notes    \n4.Read notes \n5.Update notes    \n6.Delete notes \n7.Your enrolled courses \n8.Your total Units \n9.Exit \nYour response : "))
-    if(response==1):
-        while(True):
-            print(("\nList of Courses and respective units\n"))
-            for key in dict_of_courses:
-                print("{}  ---->  {}".format(key, dict_of_courses[key]))
-            ans = input("Enter code of the course to be added:")
-            for key in dict_of_courses:
-                fl = True
-                name_code = key.split(" ")
-                if(ans==name_code[1]):
-                    fl = False
-                    if(name_code[0] not in user_courses):
-                        student.add_course(name_code[0])
-                        print("\n{} has been added to your courses\n\n".format(name_code[0]))
-                    else:
-                        print("\nAlready in your courses\n")
+                k=input("Add more courses [y/n]:")      
+                if(k=='y'):
+                    continue
+                else:
                     break
-            if(fl):
-                print("\nEnter valid course code!!\n") 
 
-
-            k=input("Add more courses [y/n]:")
-            if(k=='y'):
-                continue
+        elif(response==2):
+            k = allow_edit()
+            if(k==True):
+                student.remove_course(c)
+                print(c+" has been removed from your courses")
+        
+        elif(response==3):
+            k = allow_edit()
+            if(k==True):
+                note = input("Enter note to be added : ")
+                c=Courses("")
+                c.create_notes(note)
+                print("\nNote added successfully\n")
+        
+        elif(response==4):
+            k = allow_edit()
+            if(k==True):
+                c=Courses(nt)
+                if(nt==""):                         
+                    print("No notes written!")          #showing message instead of empty string means blank space in CLI
+                else:
+                    c.read_notes()
+        
+        elif(response==5):
+            k = allow_edit()
+            if(k==True):
+                new_note=input("Enter notes:")      #notes get appended to already existing notes
+                c=Courses(nt)
+                c.update_notes(new_note)
+        
+        elif(response==6):
+            k = allow_edit()
+            if(k==True):
+                c=Courses(nt)
+                c.delete_notes()
+                print("\n{}'s notes deleted successfully".format(c2))
+        
+        elif(response==7):
+            if(user_courses=={}):
+                print("\nNo courses enrolled yet")
             else:
-                break
-
-    elif(response==2):
-        k = allow_edit()
-        if(k==True):
-            student.remove_course(c)
-            print(c+" has been removed from your courses")
-    
-    elif(response==3):
-        k = allow_edit()
-        if(k==True):
-            note = input("Enter note to be added : ")
-            c=Courses("")
-            c.create_notes(note)
-            print("\nNote added successfully\n")
-    
-    elif(response==4):
-        k = allow_edit()
-        if(k==True):
-            c=Courses(nt)
-            if(nt==""):
-                print("No notes written!")
-            else:
-                c.read_notes()
-    
-    elif(response==5):
-        k = allow_edit()
-        if(k==True):
-            new_note=input("Enter notes:")
-            c=Courses(nt)
-            c.update_notes(new_note)
-    
-    elif(response==6):
-        k = allow_edit()
-        if(k==True):
-            c=Courses(nt)
-            c.delete_notes()
-            print("\n{}'s notes deleted successfully".format(c2))
-    
-    elif(response==7):
-        if(user_courses=={}):
-            print("\nNo courses enrolled yet")
-        else:
-            print("\n")
+                print("\n")
+                for i in user_courses:
+                    print(i, "--> "+user_courses[i])
+        
+        elif(response==8):
+            units=0
             for i in user_courses:
-                print(i, "--> "+user_courses[i])
-    
-    elif(response==8):
-        units=0
-        for i in user_courses:
-            for key in dict_of_courses:
-                if(i==key.split()[0]):
-                    units+=dict_of_courses[key]
-        print("\nTotal Units: ", units)
+                for key in dict_of_courses:
+                    if(i==key.split()[0]):
+                        units+=dict_of_courses[key]
+            print("\nTotal Units: ", units)
 
-    else:
-        print("\nSigning Off!\n")
-        break
+        elif(response==9):                       #any response other than given options pops the menu again...exit only when 9 entered
+            print("\nSigning Off!\n")
+            break
+
+courseplanner()             #actual process called
