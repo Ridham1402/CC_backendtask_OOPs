@@ -1,4 +1,4 @@
-#Course Planner
+#Degree Planner
 
 dict_of_courses = {'Gen_Biology 1121' : 3, 'Thermodynamics 2534' : 3, 'TRW 2323' : 2, 'Computer_Programming 7683' : 4, 'Maths1 1111' : 3, 'Maths2 1112' : 3, 
                     'Maths3 1113' : 3, 'Workshop_practice 9889' : 2, 'Engineering_graphics 5482' : 2, 'Gen_chemistry 2231' : 3, 'Electrical_sciences 0584' : 3, 
@@ -186,7 +186,7 @@ def courseplanner():
                 c=Courses(nt)
                 c.delete_gmeet()
         
-        elif(response==12):                       #any response other than given options pops the menu again...exit only when 9 entered
+        elif(response==12):                       #any response other than given options pops the menu again...exit only when 12 entered
             print("\nSigning Off!\n")
             break
 
