@@ -4,7 +4,12 @@ dict_of_courses = {'Gen_Biology 1121' : 3, 'Thermodynamics 2534' : 3, 'TRW 2323'
                     'Maths3 1113' : 3, 'Workshop_practice 9889' : 2, 'Engineering_graphics 5482' : 2, 'Gen_chemistry 2231' : 3, 'Electrical_sciences 0584' : 3, 
                     'MeOW 6969' : 3}
 
-user_courses = {}
+user_courses = {}               #for key "course", value is "respective notes"
+dict_of_links = {}
+
+for i in user_courses:
+    dict_of_links[i] = ""           #for key "course", value is "gmeet link"
+
 
 class User:
 
@@ -43,6 +48,12 @@ class Courses:
     def read_notes(self):
         print(self.notes)
 
+    def add_gmeet(self, link):
+        self.link = link 
+        dict_of_links[c2] = link
+
+    def delete_gmeet(self):
+        dict_of_links[c2] = ""
 
     def update_notes(self, new_notes):
         self.new_notes = new_notes
@@ -79,7 +90,7 @@ def allow_edit():
 def courseplanner():            
     while(True):
         student = User()
-        response = int(input("\n\n\n1.Add Course    \n2.Remove Course    \n3.Create notes    \n4.Read notes \n5.Update notes    \n6.Delete notes \n7.Your enrolled courses \n8.Your total Units \n9.Exit \nYour response : "))
+        response = int(input("\n\n\n1.Add Course    \n2.Remove Course    \n3.Create notes    \n4.Read notes \n5.Update notes    \n6.Delete notes \n7.Your enrolled courses \n8.Your total Units \n9.Add G-meet link  \n10.Show G-meet link  \n11.Delete G-meet link\n12.Exit \nYour response : "))
         if(response==1):
             while(True):
                 print(("\nList of Courses and respective units\n"))
@@ -154,7 +165,28 @@ def courseplanner():
         elif(response==8):
             student.total_units()
 
-        elif(response==9):                       #any response other than given options pops the menu again...exit only when 9 entered
+        elif(response==9):
+            k = allow_edit()
+            if(k==True):
+                link = input("Enter gmeet link: ")
+                c=Courses(nt)
+                c.add_gmeet(link)
+
+        elif(response==10):
+            k = allow_edit()
+            if(k==True):
+                if(dict_of_links[c2]==""):
+                    print("No G-meet link saved!")
+                else:
+                    print(dict_of_links[c2])
+
+        elif(response==11):
+            k = allow_edit()
+            if(k==True):
+                c=Courses(nt)
+                c.delete_gmeet()
+        
+        elif(response==12):                       #any response other than given options pops the menu again...exit only when 9 entered
             print("\nSigning Off!\n")
             break
 
