@@ -19,6 +19,15 @@ class User:
         self.course = course
         del user_courses[self.course]
 
+    def total_units(self):
+        units=0
+        for i in user_courses:
+            for key in dict_of_courses:
+                if(i==key.split()[0]):
+                    units+=dict_of_courses[key]
+        print("\nTotal Units: ", units)
+
+
 
 # class 'courses' to operate with each course enrolled
 class Courses:
@@ -143,12 +152,7 @@ def courseplanner():
                     print(i, "--> "+user_courses[i])
         
         elif(response==8):
-            units=0
-            for i in user_courses:
-                for key in dict_of_courses:
-                    if(i==key.split()[0]):
-                        units+=dict_of_courses[key]
-            print("\nTotal Units: ", units)
+            student.total_units()
 
         elif(response==9):                       #any response other than given options pops the menu again...exit only when 9 entered
             print("\nSigning Off!\n")
