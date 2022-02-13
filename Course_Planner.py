@@ -101,7 +101,7 @@ def courseplanner():
                     fl = True
                     name_code = key.split(" ")
                     if(ans==name_code[1]):
-                        fl = False                      # to deal with cases when unvalid code entered
+                        fl = False                      # to deal with cases when invalid code entered
                         if(name_code[0] not in user_courses):       #to check course already enrolled or not
                             student.add_course(name_code[0])
                             print("\n{} has been added to your courses\n\n".format(name_code[0]))
